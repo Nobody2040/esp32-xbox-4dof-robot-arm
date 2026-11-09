@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 680" width="100%" height="100%" style="background:#f8fafc; font-family: 'Segoe UI', Arial, sans-serif;">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+    </marker>
+    <filter id="shadow" x="-3%" y="-3%" width="106%" height="106%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- Title Banner -->
+  <rect x="0" y="0" width="1100" height="58" fill="#1e293b"/>
+  <text x="28" y="36" fill="#ffffff" font-size="20" font-weight="bold">ESP32 4-DOF SG90 Robotic Arm — Circuit &amp; Breadboard Wiring Diagram</text>
+  <text x="1072" y="36" fill="#94a3b8" font-size="13" text-anchor="end">Single-Motor Lock | 14-Bit LEDC PWM | MB102 5V Supply</text>
+
+  <!-- ================= PC + XBOX CONTROLLER BLOCK ================= -->
+  <g filter="url(#shadow)">
+    <rect x="25" y="85" width="210" height="190" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <rect x="25" y="85" width="210" height="34" rx="10" fill="#334155"/>
+    <text x="130" y="107" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">HOST PC + XBOX DONGLE</text>
+    <text x="40" y="140" fill="#1e293b" font-size="12" font-weight="bold">Xbox Wireless Controller</text>
+    <text x="40" y="158" fill="#475569" font-size="11">• 2.4GHz USB Receiver Dongle</text>
+    <text x="40" y="176" fill="#475569" font-size="11">• Python: gamepad_bridge.py</text>
+    <text x="40" y="194" fill="#475569" font-size="11">• Baud Rate: 115200 bps</text>
+    <rect x="40" y="212" width="180" height="46" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+    <text x="130" y="231" fill="#0f172a" font-size="11" font-weight="bold" text-anchor="middle">CSV Packet Format (50Hz)</text>
+    <text x="130" y="248" fill="#2563eb" font-size="11" font-family="monospace" text-anchor="middle">LX,LY,RX,RY,BtnX\n</text>
+  </g>
+
+  <!-- USB Serial Cable Line -->
+  <path d="M 235 180 L 305 180" stroke="#2563eb" stroke-width="4" stroke-dasharray="6,3" marker-end="url(#arrow)"/>
+  <text x="270" y="168" fill="#1d4ed8" font-size="11" font-weight="bold" text-anchor="middle">USB Cable</text>
+  <text x="270" y="198" fill="#475569" font-size="10" text-anchor="middle">(5V + Serial)</text>
+
+  <!-- ================= ESP32 DEVKIT V1 BLOCK ================= -->
+  <g filter="url(#shadow)">
+    <rect x="310" y="85" width="230" height="275" rx="10" fill="#1e293b" stroke="#0f172a" stroke-width="2"/>
+    <rect x="355" y="98" width="140" height="45" rx="4" fill="#94a3b8" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="425" y="125" fill="#0f172a" font-size="13" font-weight="bold" text-anchor="middle">ESP-WROOM-32</text>
+    <text x="425" y="162" fill="#e2e8f0" font-size="13" font-weight="bold" text-anchor="middle">ESP32 DevKit Board</text>
+    <text x="425" y="180" fill="#94a3b8" font-size="11" text-anchor="middle">3.3V Logic | 50Hz 14-Bit LEDC</text>
+
+    <!-- USB Port on Left -->
+    <rect x="302" y="166" width="16" height="28" rx="3" fill="#cbd5e1" stroke="#475569"/>
+    <text x="338" y="184" fill="#cbd5e1" font-size="10">USB</text>
+
+    <!-- GPIO Pins on Right -->
+    <!-- GPIO 13 -->
+    <circle cx="525" cy="210" r="6" fill="#f59e0b"/>
+    <text x="510" y="214" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="end">GPIO 13 (Base)</text>
+    <!-- GPIO 26 -->
+    <circle cx="525" cy="240" r="6" fill="#f59e0b"/>
+    <text x="510" y="244" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="end">GPIO 26 (Shoulder)</text>
+    <!-- GPIO 14 -->
+    <circle cx="525" cy="270" r="6" fill="#f59e0b"/>
+    <text x="510" y="274" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="end">GPIO 14 (Elbow)</text>
+    <!-- GPIO 27 -->
+    <circle cx="525" cy="300" r="6" fill="#f59e0b"/>
+    <text x="510" y="304" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="end">GPIO 27 (Gripper)</text>
+    <!-- GND -->
+    <circle cx="525" cy="335" r="6" fill="#38bdf8"/>
+    <text x="510" y="339" fill="#38bdf8" font-size="12" font-weight="bold" text-anchor="end">GND (Common Ground)</text>
+  </g>
+
+  <!-- ⚠️ Strapping Pin Warning Box -->
+  <g filter="url(#shadow)">
+    <rect x="25" y="295" width="265" height="65" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="38" y="316" fill="#92400e" font-size="12" font-weight="bold">⚠️ Why GPIO 26 Instead of GPIO 12?</text>
+    <text x="38" y="334" fill="#78350f" font-size="11">GPIO 12 is a boot strapping pin (MTDI).</text>
+    <text x="38" y="350" fill="#78350f" font-size="11">Shoulder servo is wired to GPIO 26 for stability.</text>
+  </g>
+
+  <!-- ================= MB102 + BREADBOARD RAILS ================= -->
+  <g filter="url(#shadow)">
+    <rect x="25" y="385" width="515" height="265" rx="10" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+    <text x="45" y="412" fill="#0f172a" font-size="15" font-weight="bold">MB102 Breadboard Power Supply &amp; Power Rails (&lt; 700mA Max)</text>
+
+    <!-- MB102 Module Graphic -->
+    <rect x="42" y="428" width="155" height="202" rx="8" fill="#1e293b" stroke="#0f172a" stroke-width="2"/>
+    <text x="119" y="452" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">MB102 PSU</text>
+    <text x="119" y="470" fill="#94a3b8" font-size="10" text-anchor="middle">AMS1117-5.0 Regulator</text>
+
+    <!-- Top Jumper 5V -->
+    <rect x="54" y="482" width="130" height="36" rx="5" fill="#fde047" stroke="#ca8a04" stroke-width="1.5"/>
+    <text x="119" y="498" fill="#0f172a" font-size="11" font-weight="bold" text-anchor="middle">TOP JUMPER: 5V</text>
+    <text x="119" y="512" fill="#475569" font-size="9" text-anchor="middle">(Cover 5V + Center OFF Pin)</text>
+
+    <!-- Power Input Info -->
+    <rect x="54" y="528" width="130" height="42" rx="5" fill="#334155"/>
+    <text x="119" y="546" fill="#22c55e" font-size="11" font-weight="bold" text-anchor="middle">● ON/OFF Switch</text>
+    <text x="119" y="562" fill="#e2e8f0" font-size="10" text-anchor="middle">In: 6.5V-9V DC or 5V USB</text>
+
+    <!-- Bottom Jumper 5V -->
+    <rect x="54" y="580" width="130" height="36" rx="5" fill="#fde047" stroke="#ca8a04" stroke-width="1.5"/>
+    <text x="119" y="596" fill="#0f172a" font-size="11" font-weight="bold" text-anchor="middle">BOT JUMPER: 5V</text>
+    <text x="119" y="610" fill="#475569" font-size="9" text-anchor="middle">(Cover 5V + Center OFF Pin)</text>
+
+    <!-- Top Rail (+5V and GND) -->
+    <rect x="215" y="445" width="305" height="26" rx="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="225" y="463" fill="#b91c1c" font-size="12" font-weight="bold">TOP RED (+) RAIL: +5V DC (Base &amp; Shoulder)</text>
+
+    <rect x="215" y="480" width="305" height="26" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="225" y="498" fill="#1d4ed8" font-size="12" font-weight="bold">TOP BLUE (-) RAIL: GND</text>
+
+    <!-- Bottom Rail (+5V and GND) -->
+    <rect x="215" y="555" width="305" height="26" rx="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="225" y="573" fill="#b91c1c" font-size="12" font-weight="bold">BOTTOM RED (+) RAIL: +5V DC (Elbow &amp; Gripper)</text>
+
+    <rect x="215" y="590" width="305" height="26" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="225" y="608" fill="#1d4ed8" font-size="12" font-weight="bold">BOTTOM BLUE (-) RAIL: GND (Common Ground)</text>
+
+    <!-- Rail Bridge Jumper (Top GND to Bottom GND) -->
+    <path d="M 505 493 L 505 603" stroke="#1e293b" stroke-width="3.5"/>
+    <circle cx="505" cy="493" r="4.5" fill="#1e293b"/>
+    <circle cx="505" cy="603" r="4.5" fill="#1e293b"/>
+    <text x="495" y="538" fill="#0f172a" font-size="11" font-weight="bold" text-anchor="end">Link Top (-)</text>
+    <text x="495" y="552" fill="#0f172a" font-size="11" font-weight="bold" text-anchor="end">to Bottom (-)</text>
+  </g>
+
+  <!-- Common Ground Wire from ESP32 GND to Breadboard GND Rail -->
+  <path d="M 531 335 L 565 335 L 565 603 L 520 603" fill="none" stroke="#0284c7" stroke-width="4"/>
+  <circle cx="520" cy="603" r="5" fill="#0284c7"/>
+  <text x="573" y="425" fill="#0369a1" font-size="11" font-weight="bold" transform="rotate(90 573,425)">MANDATORY COMMON GROUND</text>
+
+  <!-- ================= 4x SG90 SERVO MOTORS (RIGHT SIDE) ================= -->
+  <!-- Servo 1: Base -->
+  <g filter="url(#shadow)">
+    <rect x="690" y="85" width="380" height="120" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="2"/>
+    <rect x="690" y="85" width="380" height="30" rx="10" fill="#0f172a"/>
+    <text x="708" y="105" fill="#ffffff" font-size="13" font-weight="bold">1. BASE SERVO (SG90 180°) — Left Stick X</text>
+    <text x="710" y="135" fill="#d97706" font-size="12" font-weight="bold">● Orange (Signal) ➔ ESP32 GPIO 13</text>
+    <text x="710" y="158" fill="#dc2626" font-size="12" font-weight="bold">● Red (+5V Power) ➔ Top Red (+) Rail</text>
+    <text x="710" y="181" fill="#78350f" font-size="12" font-weight="bold">● Brown (Ground)  ➔ Top Blue (-) Rail</text>
+  </g>
+
+  <!-- Servo 2: Shoulder -->
+  <g filter="url(#shadow)">
+    <rect x="690" y="225" width="380" height="120" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="2"/>
+    <rect x="690" y="225" width="380" height="30" rx="10" fill="#0f172a"/>
+    <text x="708" y="245" fill="#ffffff" font-size="13" font-weight="bold">2. SHOULDER SERVO (SG90 180°) — Left Stick Y</text>
+    <text x="710" y="275" fill="#d97706" font-size="12" font-weight="bold">● Orange (Signal) ➔ ESP32 GPIO 26</text>
+    <text x="710" y="298" fill="#dc2626" font-size="12" font-weight="bold">● Red (+5V Power) ➔ Top Red (+) Rail</text>
+    <text x="710" y="321" fill="#78350f" font-size="12" font-weight="bold">● Brown (Ground)  ➔ Top Blue (-) Rail</text>
+  </g>
+
+  <!-- Servo 3: Elbow -->
+  <g filter="url(#shadow)">
+    <rect x="690" y="365" width="380" height="120" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="2"/>
+    <rect x="690" y="365" width="380" height="30" rx="10" fill="#0f172a"/>
+    <text x="708" y="385" fill="#ffffff" font-size="13" font-weight="bold">3. ELBOW SERVO (SG90 180°) — Right Stick Y</text>
+    <text x="710" y="415" fill="#d97706" font-size="12" font-weight="bold">● Orange (Signal) ➔ ESP32 GPIO 14</text>
+    <text x="710" y="438" fill="#dc2626" font-size="12" font-weight="bold">● Red (+5V Power) ➔ Bottom Red (+) Rail</text>
+    <text x="710" y="461" fill="#78350f" font-size="12" font-weight="bold">● Brown (Ground)  ➔ Bottom Blue (-) Rail</text>
+  </g>
+
+  <!-- Servo 4: Gripper -->
+  <g filter="url(#shadow)">
+    <rect x="690" y="505" width="380" height="120" rx="10" fill="#ffffff" stroke="#64748b" stroke-width="2"/>
+    <rect x="690" y="505" width="380" height="30" rx="10" fill="#0f172a"/>
+    <text x="708" y="525" fill="#ffffff" font-size="13" font-weight="bold">4. GRIPPER SERVO (SG90 180°) — Right Stick X</text>
+    <text x="710" y="555" fill="#d97706" font-size="12" font-weight="bold">● Orange (Signal) ➔ ESP32 GPIO 27</text>
+    <text x="710" y="578" fill="#dc2626" font-size="12" font-weight="bold">● Red (+5V Power) ➔ Bottom Red (+) Rail</text>
+    <text x="710" y="601" fill="#78350f" font-size="12" font-weight="bold">● Brown (Ground)  ➔ Bottom Blue (-) Rail</text>
+  </g>
+
+  <!-- ================= SIGNAL & POWER WIRES ================= -->
+  <!-- Orange PWM Signal Wires from ESP32 to Servos -->
+  <path d="M 531 210 L 610 210 L 610 131 L 690 131" fill="none" stroke="#f59e0b" stroke-width="3"/>
+  <path d="M 531 240 L 625 240 L 625 271 L 690 271" fill="none" stroke="#f59e0b" stroke-width="3"/>
+  <path d="M 531 270 L 640 270 L 640 411 L 690 411" fill="none" stroke="#f59e0b" stroke-width="3"/>
+  <path d="M 531 300 L 655 300 L 655 551 L 690 551" fill="none" stroke="#f59e0b" stroke-width="3"/>
+
+  <!-- Red +5V Power Feed Indicators -->
+  <path d="M 520 458 L 670 458 L 670 154 L 690 154" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="5,3"/>
+  <path d="M 670 294 L 690 294" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="5,3"/>
+  <path d="M 520 568 L 680 568 L 680 434 L 690 434" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="5,3"/>
+  <path d="M 680 568 L 680 574 L 690 574" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="5,3"/>
+</svg>

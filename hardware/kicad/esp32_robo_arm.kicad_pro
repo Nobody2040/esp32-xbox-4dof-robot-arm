@@ -1,0 +1,9 @@
+{
+  "meta": {
+    "filename": "esp32_robo_arm.kicad_pro",
+    "version": 1
+  },
+  "project": {
+    "name": "esp32_robo_arm"
+  }
+}
